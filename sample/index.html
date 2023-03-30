@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <template id="fancy-button">
+      <style>
+        button {
+          display: inline-block;
+          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+      </style>
+      <button>
+        <slot></slot>
+      </button>
+    </template>
+    <fancy-button>This is a button!</fancy-button>
+    <script>
+      class FancyButton extends HTMLElement {
+        constructor() {
+          super();
+          let template = document.getElementById("fancy-button");
+          let templateContent = template.content;
+          const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
+            templateContent.cloneNode(true)
+          );
+        }
+      }
+      customElements.define("fancy-button", FancyButton);
+    </script>
+  </body>
+</html>
